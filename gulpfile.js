@@ -24,12 +24,12 @@ gulp.task('html', function () {
 gulp.task('less', function() {
 	gulp.src('./app/less/*.less')
     .pipe(less())
-    .pipe(gulp.dest('./app/css/test/'))
+    .pipe(gulp.dest('./app/css/dev/'))
 });
 
 //css
 gulp.task('css', function() {
-	gulp.src('./app/css/test/*.css')
+	gulp.src('./app/css/dev/*.css')
     .pipe(concatCSS('style.min.css'))
     .pipe(autoprefixer({
             browsers: ['last 15 versions']
@@ -44,7 +44,7 @@ gulp.task('css', function() {
 gulp.task('watch', function () {
     gulp.watch(['./app/*.html'], ['html']);
     gulp.watch(['./app/less/*.less'], ['less']);
-    gulp.watch(['./app/css/test/*.css'], ['css']);
+    gulp.watch(['./app/css/dev/*.css'], ['css']);
 });
 
 
