@@ -20,33 +20,36 @@ gulp.task('html', function () {
     .pipe(connect.reload());
 });
 
-//less
-gulp.task('less', function() {
-	gulp.src('./app/less/*.less')
+//bootstrap
+gulp.task('bootstrap', function () {
+  gulp.src('./app/less/bootstrap.less')
     .pipe(less())
-    .pipe(gulp.dest('./app/css/dev/'))
+    .pipe(rename("bootstrap-sibweb.pro.min.css"))
+    .pipe(gulp.dest('./app/css/'))
+    .pipe(connect.reload());
 });
 
-//css
-gulp.task('css', function() {
-	gulp.src('./app/css/dev/*.css')
-    .pipe(concatCSS('style.min.css'))
+//less
+gulp.task('less', function() {
+	gulp.src('./app/less/compilation.less')
+    .pipe(less())
     .pipe(autoprefixer({
             browsers: ['last 15 versions']
         }))
+    .pipe(rename("style.css"))
+    .pipe(gulp.dest('./app/css/'))
     .pipe(minifyCSS(''))
     .pipe(rename("style.min.css"))
     .pipe(gulp.dest('./app/css/'))
-    .pipe(connect.reload());
 });
 
 //watch
 gulp.task('watch', function () {
     gulp.watch(['./app/*.html'], ['html']);
-    gulp.watch(['./app/less/*.less'], ['less']);
-    gulp.watch(['./app/css/dev/*.css'], ['css']);
+    gulp.watch(['./app/less/bootstrap.less'], ['bootstrap']);
+    gulp.watch(['./app/less/src/*.less'], ['less']);
 });
 
 
 //default
-gulp.task('default',['connect', 'html', 'less', 'css', 'watch']);
+gulp.task('default',['connect', 'html', 'bootstrap', 'less', 'watch']);
